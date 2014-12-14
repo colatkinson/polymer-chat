@@ -1,0 +1,24 @@
+{
+  "name": "polymer_chat",
+  "main": "index.js",
+  "version": "0.0.1",
+  "authors": [
+    "Colin Atkinson <colin.william.atkinson@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer",
+    "core-elements": "Polymer/core-elements",
+    "paper-elements": "Polymer/paper-elements",
+    "font-roboto": "Polymer/font-roboto",
+    "paper-fab": "Polymer/paper-fab",
+    "socket.io": "~1.2.1"
+  }
+}
