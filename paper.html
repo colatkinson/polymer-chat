@@ -1,0 +1,107 @@
+<html><head><link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/font-roboto/roboto.html">
+<link rel="import" href="/bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="/bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<!--<link rel="import" href="bower_components/paper-fab/paper-fab.html">-->
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-action-dialog.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/core-item/core-item.html">
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+</head><body><polymer-element name="polymer-chat" assetpath="public/">
+    <template>
+        <link rel="stylesheet" href="/public/styles.css">
+        <core-drawer-panel responsivewidth="600px" id="drawerPanel">
+            <core-header-panel drawer="">
+                <core-toolbar>Online</core-toolbar>
+                <div layout="" vertical="" fit="">
+                    <template repeat="{{n in names}}">
+                        <core-item label="{{n}}" icon="account-circle"></core-item>
+                    </template>
+                </div>
+            </core-header-panel>
+            <core-header-panel main="">
+                <core-toolbar>
+                    <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
+                    <span flex="">Chat</span>
+                    <paper-icon-button icon="search"></paper-icon-button>
+                    <paper-icon-button icon="more-vert"></paper-icon-button>
+                    <!--<paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>-->
+                </core-toolbar>
+                <div layout="" vertical="" fit="">
+                    <div class="messages" flex="">
+                        <template repeat="{{m in messages}}">
+                            <paper-shadow z="1" flex="" class="card">
+                                <p><b>{{m.from}}</b></p>
+                                <p>{{m.txt}}</p>
+                                <p class="time"><i>{{m | formatTime(m)}}</i></p>
+                            </paper-shadow>
+                        </template>
+                    </div>
+                    <div class="content" horizontal="" layout="" end="">
+                        <paper-input id="newNoteInput" floatinglabel="" on-change="{{add}}" value="{{newNote}}" flex=""></paper-input>
+                        <paper-icon-button id="sendButton" icon="send" on-click="{{msgSend}}"></paper-icon-button>
+                    </div>
+                </div>
+            </core-header-panel>
+        </core-drawer-panel>
+        <paper-action-dialog backdrop="" autoclosedisabled="" layered="false" heading="Install Gentoo" id="dialog1">
+            <paper-input id="nameInput" floatinglabel="" label="Your name" value="{{userName}}" flex="" autofocus=""></paper-input>
+            <paper-button id="nameOkayButton" affirmative="" data-test="{{isNameInvalid(userName)}}" on-click="{{setName}}" disabled="">Okay</paper-button>
+        </paper-action-dialog>
+    </template>
+    <script>
+    Polymer('polymer-chat', {
+        toggleDrawer: function() {
+            this.$.drawerPanel.togglePanel();
+        },
+        setName: function() {
+            console.log("Setting name");
+            this.socket = io();
+            this.socket.emit("set name", this.userName);
+            var this2 = this;
+            this.socket.on('chat message', function(msg){
+                //$('#messages').append($('<li>').text(msg));
+                this2.messages.push(msg);
+                this2.job("job1", function() {
+                    var objDiv = document.querySelector("html /deep/ .messages");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }, 500);
+                console.log(this2.messages);
+            });
+            this.socket.on("connections", function(names) {
+                console.log(names);
+                this2.names = names;
+            });
+        },
+        ready: function() {
+            //document.getElementById("dialog1").toggle();
+            this.messages = [];
+            this.names = [];
+        },
+        msgSend: function() {
+            //this.socket.emit("chat message", {from: this.userName, txt: this.$.newNoteInput.value});
+            this.socket.emit("chat message", this.$.newNoteInput.value);
+            this.$.newNoteInput.value = "";
+        },
+        isNameInvalid: function() {
+            var val = document.querySelector('html /deep/ #nameInput');
+            if(val) {
+                document.querySelector('html /deep/ #nameOkayButton').disabled = (val.value.length <= 0);
+                return (val.value.length <= 0);
+            }
+            return true;
+        },
+        formatTime: function(m) {
+            return moment.utc(m.time).local().format("h:m A [on] MMM Do");
+        }
+    });
+    </script>
+</polymer-element></body></html>

@@ -66,3 +66,7 @@ paper-input {
 .time {
   color: #9e9e9e;
 }
+
+#mainContainer {
+  overflow: visible !important;
+}

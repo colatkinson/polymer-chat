@@ -12,7 +12,8 @@ console.log(b.format("h:m A [on] MMM Do"));*/
 var router = express.Router();
 
 router.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  //res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/build.html');
 });
 
 router.use('/bower_components',  express.static(__dirname + '/bower_components'));
