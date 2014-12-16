@@ -13,6 +13,7 @@
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/core-item/core-item.html">
 <script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
 <polymer-element name="polymer-chat">
     <template>
@@ -40,6 +41,7 @@
                             <paper-shadow z="1" flex class="card">
                                 <p><b>{{m.from}}</b></p>
                                 <p>{{m.txt}}</p>
+                                <p class="time"><i>{{m | formatTime(m)}}</i></p>
                             </paper-shadow>
                         </template>
                     </div>
@@ -81,11 +83,8 @@
         },
         ready: function() {
             //document.getElementById("dialog1").toggle();
-            this.messages = [
-                {from: "Carl", txt: "Heyya, Lenny!"},
-                {from: "Lenny", txt: "Oh, uh, hey, Carl."}
-            ];
-            this.names = ["Lenny", "Carl"];
+            this.messages = [];
+            this.names = [];
         },
         msgSend: function() {
             //this.socket.emit("chat message", {from: this.userName, txt: this.$.newNoteInput.value});
@@ -99,6 +98,9 @@
                 return (val.value.length <= 0);
             }
             return true;
+        },
+        formatTime: function(m) {
+            return moment.utc(m.time).local().format("h:m A [on] MMM Do");
         }
     });
     </script>

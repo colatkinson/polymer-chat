@@ -26,12 +26,12 @@
 }
 
 [drawer] core-toolbar {
-  background-color: #4F7DC9;
+  background-color: #5c6bc0;
   color: #fff;
 }
 
 [main] core-toolbar {
-  background-color: #526E9C;
+  background-color: #3f51b5;
   color: #fff;
 }
 
@@ -61,4 +61,8 @@ div.messages {
 
 paper-input {
   padding-left: 8px;
+}
+
+.time {
+  color: #9e9e9e;
 }

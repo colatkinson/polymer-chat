@@ -2,6 +2,12 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var moment = require('moment');
+/*var a = moment().utc();
+var b = moment().utc(a);
+//console.log(a, b.format("h:m A [on] MMM Do"));
+console.log(a.format("h:m A [on] MMM Do"));
+console.log(b.format("h:m A [on] MMM Do"));*/
 
 var router = express.Router();
 
@@ -25,7 +31,8 @@ io.on('connection', function(socket){
     io.emit('connections', Object.keys(names).map(function (key) {return names[key]}));
     socket.on('chat message', function(msg){
         console.log('message: ' + msg);
-        io.emit('chat message', {from: name, txt: msg});
+        io.emit('chat message', {from: name, txt: msg, time: moment.utc()});
+        console.log(moment.utc());
     });
   });
   socket.on('disconnect', function(){
