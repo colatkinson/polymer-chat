@@ -1,0 +1,8 @@
+{
+  "name": "Polymer Chat",
+  "description": "A simple Socket.IO chat application with Polymer",
+  "repository": "https://github.com/colatkinson/polymer-chat",
+  "logo": "https://raw.githubusercontent.com/colatkinson/polymer-chat/master/public/app-icon.png",
+  "keywords": ["node", "express", "polymer"]
+}
+

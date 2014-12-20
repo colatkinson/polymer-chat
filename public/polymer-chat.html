@@ -52,7 +52,7 @@
                 </div>
             </core-header-panel>
         </core-drawer-panel>
-        <paper-action-dialog backdrop autoCloseDisabled layered="false" heading="Install Gentoo" id="dialog1">
+        <paper-action-dialog backdrop autoCloseDisabled layered="false" heading="Choose a handle" id="dialog1">
             <paper-input id="nameInput" floatingLabel label="Your name" value="{{userName}}" flex autofocus></paper-input>
             <paper-button id="nameOkayButton" affirmative data-test="{{isNameInvalid(userName)}}" on-click="{{setName}}" disabled>Okay</paper-button>
         </paper-action-dialog>
@@ -100,7 +100,7 @@
             return true;
         },
         formatTime: function(m) {
-            return moment.utc(m.time).local().format("h:m A [on] MMM Do");
+            return moment.utc(m.time).local().format("h:mm A [on] MMM Do");
         }
     });
     </script>
