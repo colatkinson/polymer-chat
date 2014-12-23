@@ -14,8 +14,8 @@ var port = (process.env.PORT || 3000);
 var router = express.Router();
 
 router.get('/', function(req, res){
-  //res.sendFile(__dirname + '/index.html');
-  res.sendFile(__dirname + '/build.html');
+  res.sendFile(__dirname + '/index.html');
+  //res.sendFile(__dirname + '/build.html');
 });
 
 router.use('/bower_components',  express.static(__dirname + '/bower_components'));

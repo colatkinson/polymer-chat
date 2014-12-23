@@ -12,8 +12,9 @@
 <link rel="import" href="bower_components/paper-dialog/paper-action-dialog.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/core-item/core-item.html">
+<script type="text/javascript" src="bower_components/html5-desktop-notifications/desktop-notify-min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
 
 <polymer-element name="polymer-chat">
     <template>
@@ -70,11 +71,12 @@
             this.socket.on('chat message', function(msg){
                 //$('#messages').append($('<li>').text(msg));
                 this2.messages.push(msg);
+                this2.showNotifications(msg.from, msg.txt);
                 this2.job("job1", function() {
                     var objDiv = document.querySelector("html /deep/ .messages");
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }, 500);
-                console.log(this2.messages);
+                //console.log(this2.messages);
             });
             this.socket.on("connections", function(names) {
                 console.log(names);
@@ -101,6 +103,15 @@
         },
         formatTime: function(m) {
             return moment.utc(m.time).local().format("h:mm A [on] MMM Do");
+        },
+        showNotifications: function(from, text) {
+            notify.config({pageVisibility: false, autoClose: 1000});
+            var perm = notify.permissionLevel();
+            //if(perm == notify.PERMISSION_DEFAULT)
+            //{
+                notify.requestPermission();
+            //}
+            notify.createNotification("Message from " + from, {body: text, icon: "app-icon.png"});
         }
     });
     </script>

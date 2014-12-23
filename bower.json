@@ -18,6 +18,7 @@
     "core-elements": "Polymer/core-elements",
     "paper-elements": "Polymer/paper-elements",
     "font-roboto": "Polymer/font-roboto",
-    "paper-fab": "Polymer/paper-fab"
+    "paper-fab": "Polymer/paper-fab",
+    "html5-desktop-notifications": "*"
   }
 }
