@@ -12,6 +12,18 @@
 <link rel="import" href="bower_components/paper-dialog/paper-action-dialog.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/core-item/core-item.html">
+
+<link href="bower_components/core-collapse/core-collapse.html" rel="import">
+  <link href="bower_components/core-icons/core-icons.html" rel="import">
+  <link href="bower_components/core-menu/core-menu.html" rel="import">
+  <link href="bower_components/paper-button/paper-button.html" rel="import">
+  <link href="bower_components/paper-dropdown/paper-dropdown.html" rel="import">
+  <link href="bower_components/core-dropdown/core-dropdown.html" rel="import">
+  <link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
+  <link href="bower_components/paper-item/paper-item.html" rel="import">
+  <link href="bower_components/paper-checkbox/paper-checkbox.html" rel="import">
+
+  <link href="bower_components/paper-menu-button/paper-menu-button.html" rel="import">
 <script type="text/javascript" src="bower_components/html5-desktop-notifications/desktop-notify-min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
@@ -33,7 +45,13 @@
                     <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
                     <span flex>Chat</span>
                     <paper-icon-button icon="search"></paper-icon-button>
-                    <paper-icon-button icon="more-vert"></paper-icon-button>
+                    <!--<paper-icon-button icon="more-vert"></paper-icon-button>-->
+                    <paper-menu-button>
+                        <paper-icon-button icon="more-vert"></paper-icon-button>
+                        <paper-dropdown class="dropdown" halign="right">
+                            <paper-item><paper-checkbox checked label="Notifications"></paper-checkbox></paper-item>
+                        </paper-dropdown>
+                    </paper-menu-button>
                     <!--<paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>-->
                 </core-toolbar>
                 <div layout vertical fit>

@@ -70,3 +70,50 @@ paper-input {
 #mainContainer {
   overflow: visible !important;
 }
+
+.dropdown core-item {
+  color: black !important;
+}
+
+paper-dropdown {
+  color: black;
+  min-width: 100px;
+}
+
+/*section {
+      padding: 20px 0;
+    }
+
+    section > div {
+      padding: 14px;
+      font-size: 16px;
+    }
+
+    paper-item {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    html /deep/ core-collapse {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    .constrained-height {
+      height: 150px;
+    }
+
+    .colored {
+      color: #0f9d58;
+    }
+
+    .dropdown.colored::shadow #ripple,
+    .dropdown.colored::shadow #background {
+      border: 1px solid #0f9d58;
+      background-color: #b7e1cd;
+    }
+
+    body /deep/ core-menu {
+    overflow: hidden !important;
+}*/
