@@ -49,7 +49,11 @@
                     <paper-menu-button>
                         <paper-icon-button icon="more-vert"></paper-icon-button>
                         <paper-dropdown class="dropdown" halign="right">
-                            <paper-item><paper-checkbox checked label="Notifications"></paper-checkbox></paper-item>
+                            <paper-item>
+                                <paper-checkbox checked label="Notifications" id="notifyToggle"
+                                                on-change="{{toggleNotifications}}">
+                                </paper-checkbox>
+                            </paper-item>
                         </paper-dropdown>
                     </paper-menu-button>
                     <!--<paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>-->
@@ -78,6 +82,9 @@
     </template>
     <script>
     Polymer('polymer-chat', {
+        toggleNotifications: function() {
+            this.showNotify = document.getElementById("notifyToggle").checked;
+        },
         toggleDrawer: function() {
             this.$.drawerPanel.togglePanel();
         },
@@ -105,6 +112,10 @@
             //document.getElementById("dialog1").toggle();
             this.messages = [];
             this.names = [];
+
+            this.showNotify = true;
+            notify.config({pageVisibility: false, autoClose: 1000});
+            notify.requestPermission();
         },
         msgSend: function() {
             //this.socket.emit("chat message", {from: this.userName, txt: this.$.newNoteInput.value});
@@ -123,13 +134,15 @@
             return moment.utc(m.time).local().format("h:mm A [on] MMM Do");
         },
         showNotifications: function(from, text) {
-            notify.config({pageVisibility: false, autoClose: 1000});
-            var perm = notify.permissionLevel();
+            //notify.config({pageVisibility: false, autoClose: 1000});
+            //var perm = notify.permissionLevel();
             //if(perm == notify.PERMISSION_DEFAULT)
             //{
-                notify.requestPermission();
+                //notify.requestPermission();
             //}
-            notify.createNotification("Message from " + from, {body: text, icon: "app-icon.png"});
+            if(this.showNotify) {
+                notify.createNotification("Message from " + from, {body: text, icon: "app-icon.png"});
+            }
         }
     });
     </script>
