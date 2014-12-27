@@ -91,16 +91,22 @@
         setName: function() {
             console.log("Setting name");
             this.socket = io();
+            //console.log(this.socket.io.engine.id);
             this.socket.emit("set name", this.userName);
             var this2 = this;
+            this.socket.on("connect", function() {
+                console.log(this.io.engine.id);
+            })
             this.socket.on('chat message', function(msg){
                 //$('#messages').append($('<li>').text(msg));
                 this2.messages.push(msg);
-                this2.showNotifications(msg.from, msg.txt);
                 this2.job("job1", function() {
                     var objDiv = document.querySelector("html /deep/ .messages");
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }, 500);
+                if(this.io.engine.id != msg.from_id) {
+                    this2.showNotifications(msg.from, msg.txt);
+                }
                 //console.log(this2.messages);
             });
             this.socket.on("connections", function(names) {

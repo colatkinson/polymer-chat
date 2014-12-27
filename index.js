@@ -35,7 +35,8 @@ io.on('connection', function(socket){
     io.emit('connections', Object.keys(names).map(function (key) {return names[key]}));
     socket.on('chat message', function(msg){
         //console.log('message: ' + msg);
-        io.emit('chat message', {from: name, txt: msg, time: moment.utc()});
+        //console.log(this.id);
+        io.emit('chat message', {from: name, from_id: this.id, txt: msg, time: moment.utc()});
         //console.log(moment.utc());
     });
   });
