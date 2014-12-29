@@ -7,9 +7,9 @@
     "express": "^4.10.6",
     "moment": "^2.8.4",
     "socket.io": "^1.2.1",
-    "vulcanize": "^0.7.2"
+    "vulcanize": "^0.7.5"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/vulcanize/bin/vulcanize --inline -s -o build.html index.html"
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/vulcanize/bin/vulcanize -s -o build.html index.html"
   }
 }
